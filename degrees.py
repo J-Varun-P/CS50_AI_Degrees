@@ -91,16 +91,11 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-
     num_explored = 0
     start = Node(state=source, parent=None, action=None)
     frontier = QueueFrontier()
     frontier.add(start)
     explored = set()
-
-    temp = neighbors_for_person(source)
-    print(temp)
-
     while True:
         # If nothing left in frontier, then no path
         if frontier.empty():
@@ -108,21 +103,6 @@ def shortest_path(source, target):
         # Choose a node from the frontier
         node = frontier.remove()
         num_explored += 1
-        # If node is the goal, then we have a solution
-        """
-        if node.state == target:
-            print(node.state, people[node.state]["name"])
-            print(target, people[target]["name"])
-            actions = []
-            cells = []
-            solution = []
-            while node.parent is not None:
-                solution.append((node.action,node.state))
-                node = node.parent
-            solution.reverse()
-            print(solution)
-            return solution
-        """
         # Mark node as explored
         explored.add(node.state)
         # Add neighbors to frontier
@@ -130,36 +110,14 @@ def shortest_path(source, target):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
                 frontier.add(child)
-                print(f'{people[child.state]["name"]} starred in {movies[child.action]["title"]}')
                 if child.state == target:
-                    print(child.state, people[child.state]["name"])
-                    print(target, people[target]["name"])
-                    actions = []
-                    cells = []
                     solution = []
                     while child.parent is not None:
                         solution.append((child.action,child.state))
                         child = child.parent
                     solution.reverse()
-                    print(solution)
                     return solution
 
-
-
-
-"""
-    print("---")
-    print(start.state,start.parent,start.action)
-    print("---")
-    for i in range(len(result)):
-        person1 = people[result[i][1]]["name"]
-        movie = movies[result[i][0]]["title"]
-        print(f"{i + 1}: {person1} starred in {movie}")
-    pass
-    # TODO
-    #raise NotImplementedError
-
-"""
 
 def person_id_for_name(name):
     """
