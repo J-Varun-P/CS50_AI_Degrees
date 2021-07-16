@@ -99,7 +99,8 @@ def shortest_path(source, target):
     while True:
         # If nothing left in frontier, then no path
         if frontier.empty():
-            raise Exception("no solution")
+            #raise Exception("no solution")
+            return None
         # Choose a node from the frontier
         node = frontier.remove()
         num_explored += 1
@@ -109,6 +110,7 @@ def shortest_path(source, target):
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
+                #print(f'{people[state]["name"]} starred in {movies[action]["title"]}')
                 frontier.add(child)
                 if child.state == target:
                     solution = []
